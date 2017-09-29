@@ -3,96 +3,57 @@ title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
-  - ruby
-  - python
-  - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
+  - <a href='https://partners.coverfly.com'>Back to Coverfly</a>
 
 includes:
-  - errors
 
 search: true
 ---
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the Coverfly Partner API! If you're a partner, 
+you can use our API to access Coverfly API endpoints,
+which can create and view information on scripts and contests in our database.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+All API requests must be made over HTTPS. Calls made over plain HTTP will fail.
 
-This example API documentation page was created with [Slate](https://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+We currently only have language bindings in Shell, but PHP and Python libraries are coming soon.
+You can view code examples in the dark area to the right.
 
 # Authentication
 
 > To authorize, use this code:
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
 ```shell
 # With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+curl "api_endpoint_here" \
+  -H "X-Authorization: yourapikeyhere"
 ```
 
-```javascript
-const kittn = require('kittn');
+> Make sure to replace `yourapiheyhere` with your API key.
 
-let api = kittn.authorize('meowmeowmeow');
-```
+Coverfly uses API keys to allow access to the API. You can register a new Coverfly API key by emailing support@coverfly.com.
 
-> Make sure to replace `meowmeowmeow` with your API key.
+Coverfly expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
+`X-Authorization: yourapikeyhere`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>yourapikeyhere</code> with your partner API key.
 </aside>
 
-# Kittens
+# Contests
 
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+## Get All Contests
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+curl "https://api.coverfly.com/v1/contests" \
+    -H "X-Authorization: yourapikeyhere"
+    -L \
+    -G 
 ```
 
 > The above command returns JSON structured like this:
@@ -101,139 +62,224 @@ let kittens = api.kittens.get();
 [
   {
     "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
+    "name": "ScreenCraft Horror Contest (2017)",
+    "active": false,
   },
   {
     "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+    "name": "ScreenCraft Action Contest (2016)",
+    "active": true,
   }
 ]
 ```
 
-This endpoint retrieves all kittens.
+This endpoint retrieves all contest seasons.  Keep in mind that there may be
+multiple seasons for each competition.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET https://api.coverfly.com/v1/contests`
 
 ### Query Parameters
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+None
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
+# Scripts
 
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+## Get Scripts for a Given Contest
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+curl "https://api.coverfly.com/v1/contests/scripts" \
+    -H "X-Authorization: yourapikeyhere" \
+    -L \
+    -G \
+    -d "contest_id=100" \
+    -d "offset=0" \
+    -d "count=20"
 ```
 
-```javascript
-const kittn = require('kittn');
+> The above command returns JSON structured like this:
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+```json
+[
+  {
+  "id": 4555,
+  "title": "Example Title",
+  "email": "user1@email.com",
+  "first_name": "User First Name",
+  "last_name": "User Last Name",
+  "writers": [
+    [
+      "first_name": "Writer1 First Name",
+      "last_name": "Writer1 Last Name"
+    ],
+    [
+      "first_name": "Writer2 First Name",
+      "last_name": "Writer2 Last Name"
+    ]
+  ],
+  "package": "ScreenCraft Horror Contest Entry",
+  "eliminated": false,
+  "placement": "Semifinalist",
+  "network": "Coverfly",
+  "paid": 99.00,
+  "score": 7.6
+  },
+  {
+    "id": 4556,
+    "title": "Example Title",
+    "email": "user1@email.com",
+    "first_name": "User First Name",
+    "last_name": "User Last Name",
+    "writers": [
+      [
+        "first_name": "Writer1 First Name",
+        "last_name": "Writer1 Last Name"
+      ],
+      [
+        "first_name": "Writer2 First Name",
+        "last_name": "Writer2 Last Name"
+      ]
+    ],
+    "package": "ScreenCraft Horror Contest Entry",
+    "eliminated": false,
+    "placement": "Semifinalist",
+    "network": "Coverfly",
+    "paid": 99.00,
+    "score": 7.6
+    }
+]
+```
+
+This endpoint retrieves scripts for a given contest season.
+
+### HTTP Request
+
+`GET https://api.coverfly.com/v1/contests/scripts?contest_id=1`
+
+### Query Parameters
+
+Parameter | Default | Description | Required
+--------- | ------- | ----------- | --------
+contest_id | N/A | The Coverfly Contest ID | Yes
+offset | 0 | The number of scripts to offset the results by | No
+count | 10 | The number of scripts to return | No
+
+## Get a Specific Script
+
+```shell
+curl "https://api.coverfly.com/v1/script" \
+    -H "X-Authorization: yourapikeyhere" \
+    -L \
+    -G \
+    -d "script_id=1000"
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+    "id": 4556,
+    "title": "Example Title",
+    "email": "user1@email.com",
+    "first_name": "User First Name",
+    "last_name": "User Last Name",
+    "writers": [
+      [
+        "first_name": "Writer1 First Name",
+        "last_name": "Writer1 Last Name"
+      ],
+      [
+        "first_name": "Writer2 First Name",
+        "last_name": "Writer2 Last Name"
+      ]
+    ],
+    "package": "ScreenCraft Horror Contest Entry",
+    "eliminated": false,
+    "placement": "Semifinalist",
+    "network": "Coverfly",
+    "paid": 99.00,
+    "score": 7.6,
+    "pdf": "https://link.to.script.pdf"
 }
 ```
 
-This endpoint retrieves a specific kitten.
+This endpoint retrieves a specific script.
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<aside class="warning">Links to script PDFs expire after one hour.</aside>
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET https://api.coverfly.com/v1/script?id=1`
 
 ### URL Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+Parameter | Default | Description | Required
+--------- | ------- | ----------- | --------
+id | N/A | The id of the script to retrieve | Yes
 
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
+## Create a Script
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
+curl "https://api.coverfly.com/v1/script" \
+    -X POST \
+    -H "X-Authorization:{your_api_key_here}" \
+    -F "pdf=@local_pdf.pdf" \
+    -F "first_name=Eric" \
+    -F "last_name=Lindros" \
+    -F "email=example@gmail.com" \
+    -F "title=Example Title" \
+    -F "package_id=47" \
+    -F "pages=104" \
+    -F "format=Feature" \
+    -F "genre=Drama"
 ```
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
+> The above command returns JSON structured like this when it succeeds:
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+  "success": true
 }
 ```
 
-This endpoint retrieves a specific kitten.
+> The above command returns JSON structured like this when it fails:
+
+```json
+{
+  "success": false,
+  "error": "invalid_user",
+  "message": "User already used free first impression."
+}
+```
+
+> Failed commands return the following values for `error`:
+
+```
+invalid_api_key
+invalid_params
+invalid_package
+invalid_user
+internal_error
+```
+
+This endpoint creates a script.
 
 ### HTTP Request
 
-`DELETE http://example.com/kittens/<ID>`
+`POST https://api.coverfly.com/v1/script`
 
 ### URL Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+Parameter | Default | Description | Required
+--------- | ------- | ----------- | --------
+pdf | N/A | The local path to the PDF file for the script | Yes
+first_name | N/A | The user's first name | Yes
+last_name | '' | The user's last name | No
+email | N/A | The user's email | Yes
+package_id | N/A | The package ID for the script | Yes
+title | N/A | The title of the script | Yes
+genre | 'Unknown' | The script genre | No
+format | 'Unknown' | The script format | No
+pages | null | The page count for the script | No
 
