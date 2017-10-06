@@ -23,6 +23,12 @@ All API requests must be made over HTTPS. Calls made over plain HTTP will fail.
 We currently only have language bindings in Shell, but PHP and Python libraries are coming soon.
 You can view code examples in the dark area to the right.
 
+<aside class="notice">
+We also have an invite-only Zapier integration that enables you to automatically
+sync script PDFs to your own Dropbox or Google Drive folders,
+save submission data into Google Sheets, and a lot more!
+</aside>
+
 # Authentication
 
 > To authorize, use this code:
