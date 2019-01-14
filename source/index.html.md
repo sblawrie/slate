@@ -187,6 +187,7 @@ curl "https://api.coverfly.com/v1/script" \
 {
     "id": 4556,
     "title": "Example Title",
+    "pages": 110,
     "email": "user1@email.com",
     "first_name": "User First Name",
     "last_name": "User Last Name",
@@ -201,12 +202,22 @@ curl "https://api.coverfly.com/v1/script" \
       ]
     ],
     "package": "ScreenCraft Horror Contest Entry",
+    "package_id": 4,
+    "genre": "Drama",
+    "format": "Feature",
     "eliminated": false,
     "placement": "Semifinalist",
     "network": "Coverfly",
     "paid": 99.00,
     "score": 7.6,
-    "pdf": "https://link.to.script.pdf"
+    "pdf": "https://link.to.script.pdf",
+    "pdf_without_title_page": "https://link.to.script.without.title.page.pdf",
+    "logline": "Sample logline",
+    "submitted_at": "2019-01-14 12:00:00",
+    "miscellaneous": [
+      "36": "White or of European descent"
+    ],
+    "coupon": "coupon_code_used"
 }
 ```
 
@@ -216,13 +227,13 @@ This endpoint retrieves a specific script.
 
 ### HTTP Request
 
-`GET https://api.coverfly.com/v1/script?id=1`
+`GET https://api.coverfly.com/v1/script?script_id=1`
 
 ### URL Parameters
 
 Parameter | Default | Description | Required
 --------- | ------- | ----------- | --------
-id | N/A | The id of the script to retrieve | Yes
+script_id | N/A | The id of the script to retrieve | Yes
 
 ## Create a Script
 
