@@ -128,6 +128,7 @@ curl "https://api.coverfly.com/v1/contests/scripts" \
   "eliminated": false,
   "placement": "Semifinalist",
   "network": "Coverfly",
+  "has_file": false,
   "paid": 99.00,
   "score": 7.6
   },
@@ -149,6 +150,7 @@ curl "https://api.coverfly.com/v1/contests/scripts" \
     ],
     "package": "ScreenCraft Horror Contest Entry",
     "eliminated": false,
+    "has_file": true,
     "placement": "Semifinalist",
     "network": "Coverfly",
     "paid": 99.00,
