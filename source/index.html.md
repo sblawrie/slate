@@ -109,12 +109,12 @@ curl "https://api.coverfly.com/v1/contests/scripts" \
 ```json
 [
   {
-  "id": 4555,
-  "title": "Example Title",
-  "email": "user1@email.com",
-  "first_name": "User First Name",
-  "last_name": "User Last Name",
-  "writers": [
+    "id": 4555,
+    "title": "Example Title",
+    "email": "user1@email.com",
+    "first_name": "User First Name",
+    "last_name": "User Last Name",
+    "writers": [
     [
       "first_name": "Writer1 First Name",
       "last_name": "Writer1 Last Name"
@@ -123,14 +123,14 @@ curl "https://api.coverfly.com/v1/contests/scripts" \
       "first_name": "Writer2 First Name",
       "last_name": "Writer2 Last Name"
     ]
-  ],
-  "package": "ScreenCraft Horror Contest Entry",
-  "eliminated": false,
-  "placement": "Semifinalist",
-  "network": "Coverfly",
-  "has_file": false,
-  "paid": 99.00,
-  "score": 7.6
+    ],
+    "package": "ScreenCraft Horror Contest Entry",
+    "eliminated": false,
+    "placement": "Semifinalist",
+    "network": "Coverfly",
+    "has_file": false,
+    "paid": 99.00,
+    "score": 7.6
   },
   {
     "id": 4556,
